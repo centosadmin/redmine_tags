@@ -1,6 +1,8 @@
-<% if defined?(sidebar_tags) && !sidebar_tags.empty? && !@issue %>
-  <%= stylesheet_link_tag 'jquery.tagit.css', plugin: 'redmine_tags' %>
-  <%= stylesheet_link_tag 'redmine_tags', plugin: 'redmine_tags' %>
-  <h3><%= l :tags %></h3>
-  <%= render_sidebar_tags %>
+<% cache([User.current, @project], expires_in: 8.hours) do %>
+  <% if defined?(sidebar_tags) && !sidebar_tags.empty? && !@issue %>
+    <%= stylesheet_link_tag 'jquery.tagit.css', plugin: 'redmine_tags' %>
+    <%= stylesheet_link_tag 'redmine_tags', plugin: 'redmine_tags' %>
+    <h3><%= l :tags %></h3>
+    <%= render_sidebar_tags %>
+  <% end %>
 <% end %>
